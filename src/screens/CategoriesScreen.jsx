@@ -1,34 +1,30 @@
-import { Text, StyleSheet, FlatList } from 'react-native'
-import React from 'react'
+import {StyleSheet, FlatList} from 'react-native'
+import CategoryItem from '../components/CategoryItem'
+import { useGetCategoriesQuery } from '../services/shopService'
 
-import categories_data from '../data/categories_data.json';
-import Header from '../components/Header';
-import CategoryItem from '../components/CategoryItem';
+const CategoriesScreen = ({navigation}) => {
 
-const CategoriesScreen = ({onSelectCategoryEvent}) => {
-
+    const {data, isLoading, error} = useGetCategoriesQuery()
 
     const renderCategoryItem = ({item}) => (
-        <CategoryItem
-            category={item}
-            onSelectCategoryEvent={onSelectCategoryEvent}
-        />
+        <CategoryItem category={item} navigation={navigation} />
     )
 
-    return (
-    <>
-        <Header title="Categorías" />
-        <FlatList
-            data={categories_data}
+    return(
+        <>
+        <FlatList style={styles.categories}
+            data={data}
             renderItem={renderCategoryItem}
-            keyExtractor={item => item}
+            keyExtractor={item=>item}
         />
-    </>
+        </>
     )
 }
 
 export default CategoriesScreen
 
 const styles = StyleSheet.create({
-
-});
+    categories:{
+        marginBottom:90
+    }
+})

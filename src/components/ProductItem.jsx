@@ -1,17 +1,28 @@
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { setProductIdSelected, setProductSelected } from '../features/shopSlice'
+import { currentFont } from '../global/fonts'
 
-const ProductItem = ({product}) => {
+const ProductItem = ({product, navigation}) => {
+
+    const dispatch = useDispatch()
+
+
   return (
-   <TouchableOpacity style={styles.containerProductItem}>
-    <Text style={styles.productTitle}>{product.title}</Text>
-    <Image
-        style={styles.productImage}
-        resizeMode='cover'
-        source={{ uri:product.thumbnail }}
-    />
+    <TouchableOpacity onPress={()=>{
+        dispatch(setProductIdSelected(product.id))
+        dispatch(setProductSelected(product.id))
+        navigation.navigate("Detalle", product.id)
 
-   </TouchableOpacity>
+    }
+        } style={styles.containerProductItem}>
+        <Text style={styles.productTitle}>{product.title}</Text>
+        <Image
+            style={styles.productImage}
+            resizeMode='cover'
+            source={{uri: product.thumbnail }}
+        />
+    </TouchableOpacity>
   )
 }
 
@@ -25,10 +36,12 @@ const styles = StyleSheet.create({
         margin:10,
     },
     productTitle:{
-        fontFamily: 'DancingScript-Regular'
+        textTransform: 'capitalize',
+        fontSize: 15,
+        fontFamily: currentFont.regular
     },
     productImage:{
         width:60,
         height:60,
-    }
+    },
 })

@@ -1,25 +1,24 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import {View, StyleSheet} from 'react-native'
 
 const Card = ({children, style}) => {
-  return (
-    <View style={{...styles.container, ...style}}>
-      {children}
-    </View>
-  )
+    return(
+        <View style={{...styles.container, ...style}}>
+            {children}
+        </View>
+    )
 }
 
 export default Card
 
 const styles = StyleSheet.create({
-    container:{
-        shadowColor: '#9999A1',
-        shadowOffset:{
-            height: 5,
-            width: 3
+    container: {
+        shadowColor: '#000',
+        shadowOffset: {
+            height: 10,
+            width: 10,
         },
         elevation: 5,
-        shadowOpacity: 1,
+        shadowOpacity: 1, 
         shadowRadius: 1
     }
-});
+})
