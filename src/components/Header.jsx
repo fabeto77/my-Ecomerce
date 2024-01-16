@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 const Header = ({ title, navigation }) => {
 
     const image = useSelector(state=>state.authReducer.profilePicture);
+    const user = useSelector(state=>state.authReducer.user)
     // Perfil
 
     return (
@@ -25,25 +26,29 @@ const Header = ({ title, navigation }) => {
             }
             
             <Text style={styles.headerTitle}>{title}</Text>
-            <Pressable onPress={()=>navigation.navigate("Perfil")}>
             {
+                user ? 
 
-                image
-                    ?
-                    <Image
-                        source={{uri:image}}
-                        style={styles.profilePicture}
-                        resizeMode='contain'
-                        />
-                    :
-                    <Image
-                        source={require('../../assets/img/user.png')}
-                        style={styles.profilePicture}
-                        resizeMode='contain'
-                        />
-
-                    }
-            </Pressable>
+                    image
+                        ?
+                        <Pressable onPress={()=>navigation.navigate("Perfil")}>
+                            <Image
+                                source={{uri:image}}
+                                style={styles.profilePicture}
+                                resizeMode='contain'
+                                />
+                        </Pressable>
+                        :
+                        <Pressable onPress={()=>navigation.navigate("Perfil")}>
+                            <Image
+                                source={require('../../assets/img/user.png')}
+                                style={styles.profilePicture}
+                                resizeMode='contain'
+                                />
+                        </Pressable>
+                :
+                <></>
+            }
         </View>
     )
 }
