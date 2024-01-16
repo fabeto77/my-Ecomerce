@@ -15,7 +15,8 @@ const LoginScreen = ({navigation}) => {
     const [triggerLogIn, result] = useLogInMutation()
 
     const onSubmit = () => {
-        triggerLogIn({email, password})
+         triggerLogIn({email, password})
+        //triggerLogIn({email: "prueba@rafa.com", password:"123456"})
         console.log(result)
     }
     const dispatch = useDispatch()
