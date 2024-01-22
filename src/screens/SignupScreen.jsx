@@ -27,7 +27,6 @@ const SignupScreen = ({ navigation }) => {
         } catch (error) {
           //console.log(error.errors)
           error.errors.map(e => {
-            console.log(Object.keys(e)[0])
             const customError = Object.values(e)[0]
             switch (Object.keys(e)[0]) {
               case "empty_email":

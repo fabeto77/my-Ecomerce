@@ -5,6 +5,7 @@ import { currentFont } from '../global/fonts'
 import { colors } from '../global/colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { setLogOutUser } from '../features/authSlice'
+import LocationSelector from '../components/LocationSelector'
 
 const ProfileScreen = ({navigation}) => {
 
@@ -62,6 +63,9 @@ const ProfileScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </View>
+        
+        <LocationSelector/>
+
         </>
     )
 }
