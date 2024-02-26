@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../features/authSlice'
 import { currentFont } from '../global/fonts'
+import { insertSession } from '../db'
 
 const LoginScreen = ({navigation}) => {
 
@@ -24,6 +25,13 @@ const LoginScreen = ({navigation}) => {
     useEffect(()=>{
         if(result.data){
             dispatch(setUser(result.data))
+            insertSession({
+              localId: result.data.localId,
+              email: result.data.email,
+              token: result.data.idToken
+          })
+          .then(result=>console.log("Se guardo el usuario correctamente: ", result))
+          .catch(error=>console.log("Error al guardar el usuario: ", error.message))
         }
     }, [result])
 

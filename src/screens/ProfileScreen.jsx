@@ -6,6 +6,7 @@ import { colors } from '../global/colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { setLogOutUser } from '../features/authSlice'
 import LocationSelector from '../components/LocationSelector'
+import { deleteSession } from '../db'
 
 const ProfileScreen = ({navigation}) => {
 
@@ -15,9 +16,13 @@ const ProfileScreen = ({navigation}) => {
 
     const dispatch = useDispatch();
 
+    const localId = useSelector(state=>state.authReducer.localId)
+
     const onLogout = () => {
         dispatch(setLogOutUser())
-        navigation.navigate("Categories")
+        navigation.navigate("Categories");
+        deleteSession(localId)
+
     }
 
     const location =  useSelector(state => state.authReducer.location)

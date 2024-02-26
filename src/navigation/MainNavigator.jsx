@@ -4,7 +4,8 @@ import AuthNavigator from "./AuthNavigator";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetProfilePictureQuery, useGetUserLocationQuery } from "../services/shopService";
 import { useEffect } from "react";
-import { setProfilePicture, setUserLocation } from "../features/authSlice";
+import { setProfilePicture, setUser, setUserLocation } from "../features/authSlice";
+import { fetchSessions } from "../db";
 
 
 const MainNavigator = () => {
@@ -26,6 +27,23 @@ const MainNavigator = () => {
             dispatch(setUserLocation(locationData))
         }
     },[data, locationData, isLoading, isLocationLoading])
+
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                const session = await fetchSessions()
+                console.log("Session:", session)
+                if(session?.rows.length){
+                    console.log("Se han encontrado datos de usuario")
+                    const user = session.rows._array[0]
+                    console.log("user:",JSON.stringify(user));
+                    dispatch(setUser(user))
+                }
+            }catch(error){
+                console.log("Error al obtener datos del usuario local: ", error.message)
+            }
+        })()
+    },[])
 
     return (
         <NavigationContainer>
