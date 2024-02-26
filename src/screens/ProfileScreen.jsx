@@ -20,6 +20,8 @@ const ProfileScreen = ({navigation}) => {
         navigation.navigate("Categories")
     }
 
+    const location =  useSelector(state => state.authReducer.location)
+
     return (
         <>
         <View style={styles.container}>
@@ -63,6 +65,13 @@ const ProfileScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
         </View>
+        {
+            location &&
+            <View style={styles.addressContainer}>
+                <Text style={styles.addressTitle}>Última ubicación guardada: </Text>
+                <Text style={styles.addressDescription}>{location.address}</Text>     
+            </View>
+        }
         
         <LocationSelector/>
 
@@ -110,5 +119,22 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginTop:20,
         marginLeft: 10
-    } 
+    },
+    addressContainer: {
+        alignItems: 'center',
+        gap: 5,
+        padding: 10,
+        margin: 10,
+        borderRadius: 10,
+        backgroundColor: colors.primaryBack,
+    },
+    addressTitle: {
+        fontFamily: currentFont.italic,
+        fontSize: 14,
+        color:"#fff"
+    },
+    addressDescription: {
+        fontFamily: currentFont.italic,
+        color:"#fff"
+    }
 })
